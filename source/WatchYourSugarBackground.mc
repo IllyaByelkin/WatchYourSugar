@@ -99,7 +99,7 @@ class Background extends WatchUi.Drawable {
 
         numberOfPoints = i;
 
-        if (pointsx[numberOfPoints - 1] < 0) {
+        if (numberOfPoints > 0 && pointsx[numberOfPoints - 1] < 0) {
             pointsx[numberOfPoints - 1] = 0; //In case when width is not devideble through (valuesInScreen - 1)
         }
     }
