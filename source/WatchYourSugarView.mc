@@ -76,7 +76,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
             }
 
             switch(sgvData[0].get("direction")) {
-                case "Up":
+                case "SingleUp":
                     sugar = "^\n";
                     break;
                 case "FortyFiveUp":
@@ -88,7 +88,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
                 case "FortyFiveDown":
                     sugar = "\\\n";
                     break;
-                case "Down":
+                case "SingleDown":
                     sugar = "v\n";
                     break;
                 default:
