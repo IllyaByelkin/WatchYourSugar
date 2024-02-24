@@ -1,0 +1,5 @@
+<properties>
+    <property id="maxGoodSgv" type="number">180</property>
+    <property id="minGoodSgv" type="number">80</property>
+    <property id="valuesInScreen" type="number">24</property>
+</properties>
