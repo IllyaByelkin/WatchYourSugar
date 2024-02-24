@@ -20,6 +20,8 @@ import Toybox.WatchUi;
 
 class Background extends WatchUi.Drawable {
 
+    private var TOP_SCREEN_SGV = 270;
+
     private var pointsx as Array<Number>;
     private var pointsy as Array<Number>;
     private var isSgvBad as Array<Boolean>;
@@ -30,34 +32,54 @@ class Background extends WatchUi.Drawable {
     private var myRed = 0x400000;
     private var myBlue = 0x000040;
 
+    private var maxGoodSgv as Number;
+    private var minGoodSgv as Number;
+    private var valuesInScreen as Number;
+
+    private var numberOfPoints = 0;
+
+    var app;
+
     function initialize(params as Dictionary) {
 
         Drawable.initialize(params);
 
-        pointsx = new Array<Number>[12];
-        pointsy = new Array<Number>[12];
-        isSgvBad = new Array<Boolean>[12];
+        app = Application.getApp();
+
+        maxGoodSgv = app.getProperty("maxGoodSgv");
+        minGoodSgv = app.getProperty("minGoodSgv");
+        valuesInScreen = app.getProperty("valuesInScreen");
+
+        pointsx = new Array<Number>[valuesInScreen];
+        pointsy = new Array<Number>[valuesInScreen];
+        isSgvBad = new Array<Boolean>[valuesInScreen];
     }
 
     function updateSgv(dc as Dc, sgvData as Array<Dictionary>) as Void {
         width = dc.getWidth();
         height = dc.getHeight();
-        var widthStep = Toybox.Math.round(width.toFloat()/(12 - 1)); //One segment less then the values
+
+        maxGoodSgv = app.getProperty("maxGoodSgv");
+        minGoodSgv = app.getProperty("minGoodSgv");
+        valuesInScreen = app.getProperty("valuesInScreen");
+
+        var widthStep = Toybox.Math.round(width.toFloat()/(valuesInScreen - 1)); //One segment less then the values
 
         var numberOfIter = sgvData.size();
 
         var sugar;
         var converter;
 
+        var i = 0;
 
-        for (var i = 0; i < numberOfIter; i++) {
+        for (; i < numberOfIter; i++) {
             sugar = sgvData[i].get("sgv") as Number;
 
             if (sugar == null) {
                 break;
             }
 
-            if (sugar > 180 || sugar < 80) {
+            if (sugar > maxGoodSgv || sugar < minGoodSgv) {
                 isSgvBad[i] = true;
             } else {
                 isSgvBad[i] = false;
@@ -65,24 +87,25 @@ class Background extends WatchUi.Drawable {
 
             pointsx[i] = width - i * widthStep;
 
-            sugar = 270 - sugar;
+            sugar = TOP_SCREEN_SGV - sugar;
             if (sugar < 0) {
                 sugar = 0;
             }
 
-            converter = height.toFloat() * (sugar.toFloat() / 270);
+            converter = height.toFloat() * (sugar.toFloat() / TOP_SCREEN_SGV);
 
             pointsy[i] =  converter.toNumber();
         }
 
-        pointsx[numberOfIter - 1] = 0; //In case when width is not devideble through (valuesInScreen - 1)
+        numberOfPoints = i;
+
+        if (pointsx[numberOfPoints - 1] < 0) {
+            pointsx[numberOfPoints - 1] = 0; //In case when width is not devideble through (valuesInScreen - 1)
+        }
     }
 
     function draw(dc as Dc) as Void {
-        if (pointsx[0] == null || pointsx[1] == null) {
-            return;
-        }
-        var numberOfIter = pointsx.size() - 1;
+        var numberOfIter = numberOfPoints - 1;
 
         for (var i = 0; i < numberOfIter; i++) {
             if (isSgvBad[i] || isSgvBad[i + 1]) {

@@ -17,16 +17,20 @@ using Toybox.Background;
 using Toybox.System as Sys;
 import Toybox.Lang;
 import Toybox.PersistedContent;
+import Toybox.Application;
 
 (:background)
 class JsonTransaction extends Toybox.System.ServiceDelegate {
-	
+	private var app;
+
 	function initialize() {
 		Sys.ServiceDelegate.initialize();
+        app = Application.getApp();
 	}
 	
     function onTemporalEvent() {
-    	makeRequest("http://127.0.0.1:17580/sgv.json?count=12&brief_mode=Y");
+        var valuesInScreen = app.getProperty("valuesInScreen");
+    	makeRequest("http://127.0.0.1:17580/sgv.json?brief_mode=Y&count=" + valuesInScreen);
     }
 
     function dummy(responseCode as Number, data as Dictionary) as Void {

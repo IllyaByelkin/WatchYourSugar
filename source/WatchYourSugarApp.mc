@@ -19,8 +19,6 @@ import Toybox.WatchUi;
 import Toybox.System;
 using Toybox.Background;
 
-var dataChanged=false;
-var sgvData = [] as Array<Dictionary>;
 
 class WatchYourSugarApp extends Application.AppBase {
 
@@ -86,6 +84,7 @@ class WatchYourSugarApp extends Application.AppBase {
     }
 
     function onSettingsChanged() as Void {
+        dataChanged = true;
         WatchUi.requestUpdate();
     }
 
