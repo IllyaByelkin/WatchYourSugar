@@ -33,12 +33,8 @@ class JsonTransaction extends Toybox.System.ServiceDelegate {
     	makeRequest("http://127.0.0.1:17580/sgv.json?brief_mode=Y&count=" + valuesInScreen);
     }
 
-    function dummy(responseCode as Number, data as Dictionary) as Void {
 
-    }
-
-
-    function onReceive(responseCode as Number, data as Dictionary or String) as Void {
+    function onReceive(responseCode as Number, data as Dictionary) as Void {
         if (responseCode == 200) {
             Background.exit(data);
         } else {
