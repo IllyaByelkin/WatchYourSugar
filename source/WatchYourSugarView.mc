@@ -30,6 +30,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
     private var dateView;
     private var sugarView;
     private var backgroundView;
+    private var SugarArrowView;
 
     private var app;
 
@@ -47,6 +48,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         dateView = View.findDrawableById("DateLabel") as Text;
         sugarView = View.findDrawableById("SugarLabel") as Text;
         backgroundView = View.findDrawableById("BackgroundId") as Background;
+        SugarArrowView = View.findDrawableById("SugarArrow") as Text;
 
         backgroundView.updateSgv(dc, app.getSgvData());
     }
@@ -68,6 +70,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         var dateString = Lang.format("$1$\n$2$", [month, date]);
 
         var sugar = "--";
+        var sugarArrowStr = "x";
 
         if (app.getDataChanged()) {
 
@@ -76,28 +79,37 @@ class WatchYourSugarView extends WatchUi.WatchFace {
             }
 
             switch(sgvData[0].get("direction")) {
-                case "SingleUp":
-                    sugar = "^\n";
+                case "Flat":
+                    sugarArrowStr = "→";
                     break;
                 case "FortyFiveUp":
-                    sugar = "/\n";
-                    break;
-                case "Flat":
-                    sugar = "->\n";
+                    sugarArrowStr = "↗";
                     break;
                 case "FortyFiveDown":
-                    sugar = "\\\n";
+                    sugarArrowStr = "↘";
+                    break;
+                case "SingleUp":
+                    sugarArrowStr = "↑";
                     break;
                 case "SingleDown":
-                    sugar = "v\n";
+                    sugarArrowStr = "↓";
+                    break;
+                case "DoubleUp":
+                    sugarArrowStr = "↑↑";
+                    break;
+                case "DoubleDown":
+                    sugarArrowStr = "↓↓";
                     break;
                 default:
-                    sugar = "";
+                    sugarArrowStr = "x";
             }
 
-            sugar += (sgvData[0].get("sgv") as Number).format("%d");
+            sugar = (sgvData[0].get("sgv") as Number).format("%d");
 
             sugarView.setText(sugar);
+
+            SugarArrowView.setText(sugarArrowStr);
+
             backgroundView.updateSgv(dc, sgvData);
         }
 
