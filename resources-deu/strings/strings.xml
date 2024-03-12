@@ -1,0 +1,20 @@
+<strings>
+
+    <string id="AppName">WatchYourSugar</string>
+
+    <string id="maxGoodSgvS">Untere Grenze vom Zuckerzielwert</string>
+    <string id="minGoodSgvS">Obere Grenze vom Zuckerzielwert</string>
+    <string id="valuesInScreenS">Maximale Anzahl von Werten im Diagramm</string>
+    <string id="valuesGapS">Zeit zwischen Zuckermesswerten</string>
+
+    <string id="maxGoodSgvError">Dieser Wert sollte eine ganze Zahl zwischen 100 und 200 sein</string>
+    <string id="minGoodSgvError">Dieser Wert sollte eine ganze Zahl zwischen 60 und 140 sein</string>
+    <string id="valuesInScreenError">Dieser Wert sollte eine ganze Zahl zwischen 2 und 64 sein</string>
+    <string id="valuesGapError">Dieser Wert sollte eine ganze Zahl zwischen 1 und 60 sein</string>
+
+    <string id="maxGoodSgvHelp">Eine ganze Zahl zwischen 100 und 200</string>
+    <string id="minGoodSgvHelp">Eine ganze Zahl zwischen 60 und 140</string>
+    <string id="valuesInScreenHelp">Eine ganze Zahl zwischen 2 und 64</string>
+    <string id="valuesGapHelp">Eine ganze Zahl zwischen 1 und 60</string>
+
+</strings>
