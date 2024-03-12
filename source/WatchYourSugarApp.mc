@@ -59,7 +59,7 @@ class WatchYourSugarApp extends Application.AppBase {
     function onStop(state as Dictionary?) as Void {
     }
 
-    function getInitialView() as [Views] or [Views, InputDelegates] {
+    function getInitialView() {
         if(Toybox.System has :ServiceDelegate) {
     		Background.registerForTemporalEvent(new Time.Duration(5 * 60));
     	} else {

@@ -9,5 +9,8 @@
     <setting propertyKey="@Properties.valuesInScreen" title="@Strings.valuesInScreenS" prompt="@Strings.valuesInScreenHelp">
         <settingConfig type="numeric" min="2" max ="64" errorMessage="@Strings.valuesInScreenError"/>
 	</setting>
+    <setting propertyKey="@Properties.valuesGap" title="@Strings.valuesGapS" prompt="@Strings.valuesGapHelp">
+        <settingConfig type="numeric" min="1" max ="60" errorMessage="@Strings.valuesGapError"/>
+	</setting>
 
 </settings>

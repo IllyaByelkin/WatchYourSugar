@@ -4,14 +4,17 @@
 
     <string id="maxGoodSgvS">Taget BG range Low</string>
     <string id="minGoodSgvS">Taget BG range High</string>
-    <string id="valuesInScreenS">Max number of Values in the Plot</string>
+    <string id="valuesInScreenS">Max number of values in the Plot</string>
+    <string id="valuesGapS">Time between sugar values</string>
 
     <string id="maxGoodSgvError">This value should be a whole number between 100 and 200</string>
     <string id="minGoodSgvError">This value should be a whole number between 60 and 140</string>
     <string id="valuesInScreenError">This value should be a whole number between 2 and 64</string>
+    <string id="valuesGapError">This value should be a whole number between 1 and 60</string>
 
     <string id="maxGoodSgvHelp">A whole number between 100 and 200</string>
     <string id="minGoodSgvHelp">A whole number between 60 and 140</string>
     <string id="valuesInScreenHelp">A whole number between 2 and 64</string>
+    <string id="valuesGapHelp">A whole number between 1 and 60</string>
 
 </strings>

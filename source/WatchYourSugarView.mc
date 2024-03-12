@@ -30,7 +30,9 @@ class WatchYourSugarView extends WatchUi.WatchFace {
     private var dateView;
     private var sugarView;
     private var backgroundView;
-    private var SugarArrowView;
+    private var sugarArrowView;
+
+    private var valuesGap;
 
     private var app;
 
@@ -48,7 +50,9 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         dateView = View.findDrawableById("DateLabel") as Text;
         sugarView = View.findDrawableById("SugarLabel") as Text;
         backgroundView = View.findDrawableById("BackgroundId") as Background;
-        SugarArrowView = View.findDrawableById("SugarArrow") as Text;
+        sugarArrowView = View.findDrawableById("SugarArrow") as Text;
+
+        valuesGap = app.getProperty("valuesGap");
 
         backgroundView.updateSgv(dc, app.getSgvData());
     }
@@ -72,45 +76,52 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         var sugar = "--";
         var sugarArrowStr = "x";
 
-        if (app.getDataChanged()) {
+        if (sgvData.size() != 0 && sgvData[0].hasKey("sgv")) {
+            if (app.getDataChanged()) {
+                switch(sgvData[0].get("direction")) {
+                    case "Flat":
+                        sugarArrowStr = "→";
+                        break;
+                    case "FortyFiveUp":
+                        sugarArrowStr = "↗";
+                        break;
+                    case "FortyFiveDown":
+                        sugarArrowStr = "↘";
+                        break;
+                    case "SingleUp":
+                        sugarArrowStr = "↑";
+                        break;
+                    case "SingleDown":
+                        sugarArrowStr = "↓";
+                        break;
+                    case "DoubleUp":
+                        sugarArrowStr = "↑↑";
+                        break;
+                    case "DoubleDown":
+                        sugarArrowStr = "↓↓";
+                        break;
+                    default:
+                        sugarArrowStr = "x";
+                }
 
-            if (sgvData.size() == 0 || !sgvData[0].hasKey("sgv")){
-                return;
-            }
+                sugar = (sgvData[0].get("sgv") as Number).format("%d");
 
-            switch(sgvData[0].get("direction")) {
-                case "Flat":
-                    sugarArrowStr = "→";
-                    break;
-                case "FortyFiveUp":
-                    sugarArrowStr = "↗";
-                    break;
-                case "FortyFiveDown":
-                    sugarArrowStr = "↘";
-                    break;
-                case "SingleUp":
-                    sugarArrowStr = "↑";
-                    break;
-                case "SingleDown":
-                    sugarArrowStr = "↓";
-                    break;
-                case "DoubleUp":
-                    sugarArrowStr = "↑↑";
-                    break;
-                case "DoubleDown":
-                    sugarArrowStr = "↓↓";
-                    break;
-                default:
+                sugarView.setText(sugar);
+
+                sugarArrowView.setText(sugarArrowStr);
+
+                backgroundView.updateSgv(dc, sgvData);
+            } else{
+                var tn = Time.now().value();
+                var lt = sgvData[0].get("date") as Number / 1000;
+
+                var timeDiff = tn - lt;
+
+                if (timeDiff > 60 * 2 * valuesGap) {
                     sugarArrowStr = "x";
+                    sugarArrowView.setText(sugarArrowStr);
+                }
             }
-
-            sugar = (sgvData[0].get("sgv") as Number).format("%d");
-
-            sugarView.setText(sugar);
-
-            SugarArrowView.setText(sugarArrowStr);
-
-            backgroundView.updateSgv(dc, sgvData);
         }
 
         hourView.setText(hours);
