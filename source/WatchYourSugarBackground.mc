@@ -36,7 +36,9 @@ class Background extends WatchUi.Drawable {
     private var minGoodSgv as Number;
     private var valuesInScreen as Number;
 
-    private var numberOfPoints = 0;
+    private var lastValuesInScreen as Number;
+
+    private var valuesGap as Number;
 
     var app;
 
@@ -49,13 +51,34 @@ class Background extends WatchUi.Drawable {
         maxGoodSgv = Properties.getValue("maxGoodSgv");
         minGoodSgv = Properties.getValue("minGoodSgv");
         valuesInScreen = Properties.getValue("valuesInScreen");
+        valuesGap = Properties.getValue("valuesGap");
+
+        lastValuesInScreen = valuesInScreen;
 
         pointsx = new Array<Number>[valuesInScreen];
         pointsy = new Array<Number>[valuesInScreen];
         isSgvBad = new Array<Boolean>[valuesInScreen];
     }
 
+    private function initializeArrayWithValue (array as Array, value) as Array{
+
+        for (var i = 0; i < array.size(); i++) {
+            array[i] = value;
+        }
+
+        return array;
+    }
+
+    /**
+     * The function updates the positions of the top points of the
+     * sugar plot. This function is called only after the new answer from
+     * the localhost is received.
+     * 
+     * @param dc device context
+     * @param sgvData the data from the server with the sugar values
+    */
     function updateSgv(dc as Dc, sgvData as Array<Dictionary>) as Void {
+
         width = dc.getWidth();
         height = dc.getHeight();
 
@@ -63,30 +86,56 @@ class Background extends WatchUi.Drawable {
         maxGoodSgv = Properties.getValue("maxGoodSgv");
         minGoodSgv = Properties.getValue("minGoodSgv");
         valuesInScreen = Properties.getValue("valuesInScreen");
+        valuesGap = Properties.getValue("valuesGap");
         var widthStep = Toybox.Math.round(width.toFloat()/(valuesInScreen - 1)); //One segment less then the values
+
+        //Otherwise array out of bounds error after valuesInScreen update
+        if (lastValuesInScreen != valuesInScreen) {
+            lastValuesInScreen = valuesInScreen;
+
+            pointsx = new Array<Number>[valuesInScreen];
+            pointsy = new Array<Number>[valuesInScreen];
+            isSgvBad = new Array<Boolean>[valuesInScreen];
+        }
+
+        // Initializing with zeros/false for the empty data parts.
+        initializeArrayWithValue(pointsx, 0);
+        initializeArrayWithValue(pointsy, 0);
+        initializeArrayWithValue(isSgvBad, false);
 
         var numberOfIter = sgvData.size();
 
         var sugar;
+        var time_stamp;
+        var real_index;
         var converter;
 
-        var i = 0;
+        // toLong, otherwise integer overflow
+        var curr_time = Time.now().value().toLong() * (1000 as Long);
 
-        for (; i < numberOfIter; i++) {
+        for (var i = 0; i < numberOfIter; i++) {
+
             sugar = sgvData[i].get("sgv") as Number;
+            time_stamp = sgvData[i].get("date") as Number;
 
-            if (sugar == null) {
-                break;
-            }
+            // Converting timestamp to the array index.
+            real_index = (curr_time - time_stamp) / (valuesGap * 60 * 1000);
+            real_index = real_index.toNumber();
+            real_index = real_index < 0 ? 0 : real_index;
 
+            if (real_index < valuesInScreen) {
             if (sugar > maxGoodSgv || sugar < minGoodSgv) {
-                isSgvBad[i] = true;
+                    isSgvBad[real_index] = true;
             } else {
-                isSgvBad[i] = false;
+                    isSgvBad[real_index] = false;
             }
 
-            pointsx[i] = width - i * widthStep;
+                // Converting the array index to the coordinates. Most recent values
+                // Should be on the right side (higher coordinate values).
+                pointsx[real_index] = width - real_index * widthStep;
 
+                // Some magic of converting sugar values to the screen coordinates
+                // sorry I wrote it a long time ago.
             sugar = TOP_SCREEN_SGV - sugar;
             if (sugar < 0) {
                 sugar = 0;
@@ -94,20 +143,23 @@ class Background extends WatchUi.Drawable {
 
             converter = height.toFloat() * (sugar.toFloat() / TOP_SCREEN_SGV);
 
-            pointsy[i] =  converter.toNumber();
-        }
+                pointsy[real_index] =  converter.toNumber();
 
-        numberOfPoints = i;
+            } else {
+                break;
+            }
 
-        if (numberOfPoints > 0 && pointsx[numberOfPoints - 1] < 0) {
-            pointsx[numberOfPoints - 1] = 0; //In case when width is not devideble through (valuesInScreen - 1)
         }
     }
-
     function draw(dc as Dc) as Void {
-        var numberOfIter = numberOfPoints - 1;
+        var numberOfIter = pointsx.size() - 1;
 
         for (var i = 0; i < numberOfIter; i++) {
+
+            // Part for the data gaps
+            if (pointsy[i] == 0 || pointsy[i + 1] == 0) {
+                continue;
+            }
             if (isSgvBad[i] || isSgvBad[i + 1]) {
                 dc.setColor(myRed, myBlue);
                 dc.fillPolygon([[pointsx[i + 1], pointsy [i + 1]],[pointsx[i], pointsy[i]],[pointsx[i], height],[pointsx[i + 1], height]]);

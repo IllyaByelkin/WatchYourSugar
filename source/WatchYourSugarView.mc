@@ -76,8 +76,16 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         var sugar = "--";
         var sugarArrowStr = "x";
 
+        if (app.getWasTempEvent()) {
+            backgroundView.updateSgv(dc, sgvData);
+        }
+
         if (sgvData.size() != 0 && sgvData[0].hasKey("sgv")) {
-            if (app.getDataChanged()) {
+            var curr_time = Time.now().value().toLong() * (1000 as Long);
+            var dataChanged = Storage.getValue("dataChanged");
+            var time_diff = curr_time -  dataChanged;
+            var trashhold = valuesGap * 2 * 60 * 1000;
+            if (time_diff < trashhold) {
                 switch(sgvData[0].get("direction")) {
                     case "Flat":
                         sugarArrowStr = "→";
@@ -109,20 +117,11 @@ class WatchYourSugarView extends WatchUi.WatchFace {
                 sugarView.setText(sugar);
 
                 sugarArrowView.setText(sugarArrowStr);
-
-                backgroundView.updateSgv(dc, sgvData);
             } else{
-                var tn = Time.now().value();
-                var lt = sgvData[0].get("date") as Number / 1000;
-
-                var timeDiff = tn - lt;
-
-                if (timeDiff > 60 * 2 * valuesGap) {
                     sugarArrowStr = "x";
                     sugarArrowView.setText(sugarArrowStr);
                 }
             }
-        }
 
         hourView.setText(hours);
         minutesView.setText(minutes);

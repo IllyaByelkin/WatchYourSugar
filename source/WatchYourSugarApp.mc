@@ -23,12 +23,13 @@ using Toybox.Background;
 class WatchYourSugarApp extends Application.AppBase {
 
 
-    private var dataChanged=false;
+    private var dataChanged;
+    private var wasTempEvent = false;
     private var sgvData = [] as Array<Dictionary>;
 
-    function getDataChanged() as Boolean {
-        if (dataChanged) {
-            dataChanged = false;
+    function getWasTempEvent() as Boolean {
+        if (wasTempEvent) {
+            wasTempEvent = false;
             return true;
         } else {
             return false;
@@ -73,14 +74,18 @@ class WatchYourSugarApp extends Application.AppBase {
 
     function onBackgroundData(data) {
         sgvData=data;
+        if (sgvData.size() != 0) {
+            dataChanged = sgvData[0].get("date") as Number;
             Storage.setValue("sgvData", sgvData);
             Storage.setValue("dataChanged", dataChanged);
+        }
+        wasTempEvent = true;
 
         WatchUi.requestUpdate();
     }
 
     function onSettingsChanged() as Void {
-        dataChanged = true;
+        wasTempEvent = true;
         WatchUi.requestUpdate();
     }
 
