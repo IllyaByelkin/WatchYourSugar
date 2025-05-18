@@ -115,6 +115,10 @@ class Background extends WatchUi.Drawable {
             sugar = sgvData[i].get("sgv") as Number;
             time_stamp = sgvData[i].get("date") as Number;
 
+            if (time_stamp == null) {
+                return;
+            }
+
             // Converting timestamp to the array index.
             real_index = (curr_time - time_stamp) / (valuesGap * 60 * 1000);
             real_index = real_index.toNumber();
