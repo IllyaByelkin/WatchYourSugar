@@ -52,7 +52,7 @@ class WatchYourSugarView extends WatchUi.WatchFace {
         backgroundView = View.findDrawableById("BackgroundId") as Background;
         sugarArrowView = View.findDrawableById("SugarArrow") as Text;
 
-        valuesGap = app.getProperty("valuesGap");
+        valuesGap = Properties.getValue("valuesGap");
 
         backgroundView.updateSgv(dc, app.getSgvData());
     }

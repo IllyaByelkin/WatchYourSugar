@@ -46,9 +46,9 @@ class Background extends WatchUi.Drawable {
 
         app = Application.getApp();
 
-        maxGoodSgv = app.getProperty("maxGoodSgv");
-        minGoodSgv = app.getProperty("minGoodSgv");
-        valuesInScreen = app.getProperty("valuesInScreen");
+        maxGoodSgv = Properties.getValue("maxGoodSgv");
+        minGoodSgv = Properties.getValue("minGoodSgv");
+        valuesInScreen = Properties.getValue("valuesInScreen");
 
         pointsx = new Array<Number>[valuesInScreen];
         pointsy = new Array<Number>[valuesInScreen];
@@ -59,10 +59,10 @@ class Background extends WatchUi.Drawable {
         width = dc.getWidth();
         height = dc.getHeight();
 
-        maxGoodSgv = app.getProperty("maxGoodSgv");
-        minGoodSgv = app.getProperty("minGoodSgv");
-        valuesInScreen = app.getProperty("valuesInScreen");
-
+        // Update in case settings changed
+        maxGoodSgv = Properties.getValue("maxGoodSgv");
+        minGoodSgv = Properties.getValue("minGoodSgv");
+        valuesInScreen = Properties.getValue("valuesInScreen");
         var widthStep = Toybox.Math.round(width.toFloat()/(valuesInScreen - 1)); //One segment less then the values
 
         var numberOfIter = sgvData.size();

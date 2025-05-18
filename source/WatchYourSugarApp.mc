@@ -22,7 +22,6 @@ using Toybox.Background;
 
 class WatchYourSugarApp extends Application.AppBase {
 
-    private var app;
 
     private var dataChanged=false;
     private var sgvData = [] as Array<Dictionary>;
@@ -45,9 +44,8 @@ class WatchYourSugarApp extends Application.AppBase {
     }
 
     function onStart(state as Dictionary?) as Void {
-        app = Application.getApp();
-        var dataTmp = app.getProperty("sgvData");
-        var flag = app.getProperty("dataChanged");
+        var dataTmp = Storage.getValue("sgvData");
+        var flag = Storage.getValue("dataChanged");
         if (dataTmp != null) {
             sgvData = dataTmp;
         }
@@ -75,10 +73,8 @@ class WatchYourSugarApp extends Application.AppBase {
 
     function onBackgroundData(data) {
         sgvData=data;
-        dataChanged=true;
-
-        app.setProperty("sgvData", sgvData);
-        app.setProperty("dataChanged", dataChanged);
+            Storage.setValue("sgvData", sgvData);
+            Storage.setValue("dataChanged", dataChanged);
 
         WatchUi.requestUpdate();
     }

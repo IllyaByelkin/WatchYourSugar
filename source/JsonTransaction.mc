@@ -21,15 +21,13 @@ import Toybox.Application;
 
 (:background)
 class JsonTransaction extends Toybox.System.ServiceDelegate {
-	private var app;
 
 	function initialize() {
 		Sys.ServiceDelegate.initialize();
-        app = Application.getApp();
 	}
 	
     function onTemporalEvent() {
-        var valuesInScreen = app.getProperty("valuesInScreen");
+        var valuesInScreen = Properties.getValue("valuesInScreen");
     	makeRequest("http://127.0.0.1:17580/sgv.json?brief_mode=Y&count=" + valuesInScreen);
     }
 
