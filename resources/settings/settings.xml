@@ -12,5 +12,12 @@
     <setting propertyKey="@Properties.valuesGap" title="@Strings.valuesGapS" prompt="@Strings.valuesGapHelp">
         <settingConfig type="numeric" min="1" max ="60" errorMessage="@Strings.valuesGapError"/>
 	</setting>
+    <setting propertyKey="@Properties.strColorBad" title="@Strings.colorBadS" prompt="@Strings.colorBadHelp">
+        <settingConfig type="alphaNumeric" maxLength="8" errorMessage="@Strings.colorBadError"/>
+	</setting>
+    <setting propertyKey="@Properties.strColorGood" title="@Strings.colorGoodS" prompt="@Strings.colorGoodHelp">
+        <settingConfig type="alphaNumeric" maxLength="8" errorMessage="@Strings.colorGoodError"/>
+	</setting>
+
 
 </settings>

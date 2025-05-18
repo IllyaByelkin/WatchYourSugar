@@ -6,15 +6,22 @@
     <string id="minGoodSgvS">Верхняя граница целевого значения сахара</string>
     <string id="valuesInScreenS">Максимальное количество значений на графике</string>
     <string id="valuesGapS">Время между измерениями уровня сахара</string>
+    <string id="colorBadS">Цвет для плохих значений сахара</string>
+    <string id="colorGoodS">Цвет для хороших значений сахара</string>
 
     <string id="maxGoodSgvError">Это значение должно быть целым числом от 100 до 200</string>
     <string id="minGoodSgvError">Это значение должно быть целым числом от 60 до 140</string>
     <string id="valuesInScreenError">Это значение должно быть целым числом от 2 до 64</string>
     <string id="valuesGapError">Это значение должно быть целым числом от 1 до 60</string>
+    <string id="colorBadError">Значение должно быть шестнадцатеричным числом от 0x000000 до 0xffffff</string>
+    <string id="colorGoodError">Значение должно быть шестнадцатеричным числом от 0x000000 до 0xffffff</string>
 
     <string id="maxGoodSgvHelp">Целое число от 100 до 200</string>
     <string id="minGoodSgvHelp">Целое число от 60 до 140</string>
     <string id="valuesInScreenHelp">Целое число от 2 до 64</string>
     <string id="valuesGapHelp">Целое число от 1 до 60</string>
+    <string id="colorBadHelp">Шестнадцатеричное число от 0x000000 до 0xffffff</string>
+    <string id="colorGoodHelp">Шестнадцатеричное число от 0x000000 до 0xffffff</string>
+
 
 </strings>

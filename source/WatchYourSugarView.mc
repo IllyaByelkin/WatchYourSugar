@@ -118,10 +118,10 @@ class WatchYourSugarView extends WatchUi.WatchFace {
 
                 sugarArrowView.setText(sugarArrowStr);
             } else{
-                    sugarArrowStr = "x";
-                    sugarArrowView.setText(sugarArrowStr);
-                }
+                sugarArrowStr = "x";
+                sugarArrowView.setText(sugarArrowStr);
             }
+        }
 
         hourView.setText(hours);
         minutesView.setText(minutes);

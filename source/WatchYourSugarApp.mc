@@ -84,7 +84,54 @@ class WatchYourSugarApp extends Application.AppBase {
         WatchUi.requestUpdate();
     }
 
+    /**
+     * Converts the string with a hex value inside in a number,
+     * if the string is not in 0xnnnnnn format, where n is between
+     * 0 and F(f) returns the default value.
+     *
+     * @param str String to convert
+     * @param default_val default value
+     * @return Number stored in the string or the default value
+    */
+    private function hexStrToNum(str as String, default_val as Number) {
+        if (str.length() != 8) {
+            return default_val;
+        }
+        var multiplier = 1;
+        var res = 0;
+
+        var str_char = str.toCharArray();
+
+        for (var i = 7; i >= 2; i--) {
+            if (str_char[i] >= '0' && str_char[i] <= '9') {
+                res += (str_char[i].toNumber() - '0'.toNumber()) * multiplier;
+            } else if (str_char[i] >= 'A' && str_char[i] <= 'F') {
+                res += (str_char[i].toNumber() - 'A'.toNumber() + 10) * multiplier;
+            } else if (str_char[i] >= 'a' && str_char[i] <= 'f') {
+                res += (str_char[i].toNumber() - 'a'.toNumber() + 10) * multiplier;
+            } else {
+                return default_val;
+            }
+
+            multiplier *= 16;
+        }
+
+        return res;
+    }
+
     function onSettingsChanged() as Void {
+        var strColorGood = Properties.getValue("strColorGood");
+        var strColorBad = Properties.getValue("strColorBad");
+
+        var colorGood = Properties.getValue("colorGood");
+        var colorBad = Properties.getValue("colorBad");
+
+        colorGood = hexStrToNum(strColorGood, colorGood);
+        colorBad = hexStrToNum(strColorBad, colorBad);
+
+        Properties.setValue("colorGood", colorGood);
+        Properties.setValue("colorBad", colorBad);
+
         wasTempEvent = true;
         WatchUi.requestUpdate();
     }

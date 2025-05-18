@@ -29,9 +29,6 @@ class Background extends WatchUi.Drawable {
     private var width as Number?;
     private var height as Number?;
 
-    private var myRed = 0x400000;
-    private var myBlue = 0x000040;
-
     private var maxGoodSgv as Number;
     private var minGoodSgv as Number;
     private var valuesInScreen as Number;
@@ -124,11 +121,11 @@ class Background extends WatchUi.Drawable {
             real_index = real_index < 0 ? 0 : real_index;
 
             if (real_index < valuesInScreen) {
-            if (sugar > maxGoodSgv || sugar < minGoodSgv) {
+                if (sugar > maxGoodSgv || sugar < minGoodSgv) {
                     isSgvBad[real_index] = true;
-            } else {
+                } else {
                     isSgvBad[real_index] = false;
-            }
+                }
 
                 // Converting the array index to the coordinates. Most recent values
                 // Should be on the right side (higher coordinate values).
@@ -136,12 +133,12 @@ class Background extends WatchUi.Drawable {
 
                 // Some magic of converting sugar values to the screen coordinates
                 // sorry I wrote it a long time ago.
-            sugar = TOP_SCREEN_SGV - sugar;
-            if (sugar < 0) {
-                sugar = 0;
-            }
+                sugar = TOP_SCREEN_SGV - sugar;
+                if (sugar < 0) {
+                    sugar = 0;
+                }
 
-            converter = height.toFloat() * (sugar.toFloat() / TOP_SCREEN_SGV);
+                converter = height.toFloat() * (sugar.toFloat() / TOP_SCREEN_SGV);
 
                 pointsy[real_index] =  converter.toNumber();
 
@@ -151,8 +148,46 @@ class Background extends WatchUi.Drawable {
 
         }
     }
+
+    function makeColorDarker(color as Number, factor as Float) as Number{
+
+        if (factor < 0 || factor > 1) {
+            return color;
+        }
+
+        var r = (color >> 16) & 0xFF;
+        var g = (color >> 8) & 0xFF;
+        var b = color & 0xFF;
+
+        r *= factor;
+        g *= factor;
+        b *= factor;
+
+        r = r.toNumber();
+        g = g.toNumber();
+        b = b.toNumber();
+
+        return ((r << 16) | (g << 8) | b);
+    }
+
+    /**
+     * The plot consist of basically two elements:
+     * - rectangular with a darker color
+     * - line with a brighter color
+     * both elements could be of two color, for the good and bad sugar.
+     * Line is placed just over the top line of the rectangular for the
+     * aesthetic purposes.
+     * Positions of the figures updated by the updateSgv function.
+     * 
+     * @param dc device context
+    */
     function draw(dc as Dc) as Void {
         var numberOfIter = pointsx.size() - 1;
+
+        var colorGood = Properties.getValue("colorGood");
+        var colorBad = Properties.getValue("colorBad");
+        var darkColorGood = makeColorDarker(colorGood, 0.25);
+        var darkColorBad = makeColorDarker(colorBad, 0.25);
 
         for (var i = 0; i < numberOfIter; i++) {
 
@@ -161,16 +196,16 @@ class Background extends WatchUi.Drawable {
                 continue;
             }
             if (isSgvBad[i] || isSgvBad[i + 1]) {
-                dc.setColor(myRed, myBlue);
+                dc.setColor(darkColorBad, darkColorGood);
                 dc.fillPolygon([[pointsx[i + 1], pointsy [i + 1]],[pointsx[i], pointsy[i]],[pointsx[i], height],[pointsx[i + 1], height]]);
 
-                dc.setColor(0xff0000, 0x0000ff);
+                dc.setColor(colorBad, colorGood);
                 dc.drawLine(pointsx[i + 1], pointsy [i + 1],pointsx[i], pointsy[i]);
             } else {
-                dc.setColor(myBlue, myRed);
+                dc.setColor(darkColorGood, darkColorBad);
                 dc.fillPolygon([[pointsx[i + 1], pointsy [i + 1]],[pointsx[i], pointsy[i]],[pointsx[i], height],[pointsx[i + 1], height]]);
 
-                dc.setColor(0x0000ff, 0xff0000);
+                dc.setColor(colorGood, colorBad);
                 dc.drawLine(pointsx[i + 1], pointsy [i + 1],pointsx[i], pointsy[i]);
             }
         }
