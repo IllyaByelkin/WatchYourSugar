@@ -1,4 +1,10 @@
 <properties>
+
+    <property id="units" type="number">0</property>
+
+    <property id="maxGoodSgvSetting" type="float">180</property>
+    <property id="minGoodSgvSetting" type="float">80</property>
+
     <property id="maxGoodSgv" type="number">180</property>
     <property id="minGoodSgv" type="number">80</property>
     <property id="valuesInScreen" type="number">24</property>

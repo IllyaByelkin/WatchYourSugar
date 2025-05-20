@@ -13,6 +13,8 @@ data = []
 last_sgv = 120  # start around 120 mg/dL
 last_time = int(time.time() * 1000)
 
+unitshint = "mgdl"
+
 DIRECTIONS = ["Flat", "FortyFiveUp", "FortyFiveDown", "SingleUp", "SingleDown", "DoubleUp", "DoubleDown"]
 
 def realistic_direction(delta):
@@ -63,7 +65,7 @@ def updater_thread():
             time.sleep(900)  # sleep for 15 minutes
         else:
             entry, last_sgv, last_time = generate_new_entry(last_sgv, int(time.time() * 1000))
-            entry["units_hint"] = "mgdl"
+            entry["units_hint"] = unitshint
             data.insert(0, entry)
             time.sleep(300)  # sleep for 5 minutes
         # Keep data size manageable
@@ -80,7 +82,7 @@ class JSONHandler(BaseHTTPRequestHandler):
 
                 response_data = json.loads(json.dumps(data[:count]))  # deep copy
                 if response_data:
-                    response_data[0]["units_hint"] = "mgdl"
+                    response_data[0]["units_hint"] = unitshint
 
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')

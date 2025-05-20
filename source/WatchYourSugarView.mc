@@ -112,7 +112,11 @@ class WatchYourSugarView extends WatchUi.WatchFace {
                         sugarArrowStr = "x";
                 }
 
-                sugar = (sgvData[0].get("sgv") as Number).format("%d");
+                if (Properties.getValue("units") == 0) {
+                    sugar = (sgvData[0].get("sgv") as Number).format("%d");
+                } else {
+                    sugar = (sgvData[0].get("sgv") as Float * 0.0555).format("%.1f");
+                }
 
                 sugarView.setText(sugar);
 

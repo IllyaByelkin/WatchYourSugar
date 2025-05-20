@@ -19,7 +19,6 @@ As WatchYourSugar is in its early development phase, your feedback is crucial. I
 
 ## Participate in Watchface Creation
 If you're interested in contributing to the evolution of WatchYourSugar, here are some TODOs for consideration:
-- Support mmol/l units for broader international use.
 - Expand compatibility by incorporating other data sources like Spike or Nightscout.
 - Extend support to other watch models, such as the Instinct series or watches with square displays.
 - Enhance the visual appeal by updating the font for the trend arrows.

@@ -1,10 +1,16 @@
 <settings>
 
-    <setting propertyKey="@Properties.maxGoodSgv" title="@Strings.maxGoodSgvS" prompt="@Strings.maxGoodSgvHelp">
-        <settingConfig type="numeric" min="100" max ="200" errorMessage="@Strings.maxGoodSgvError"/>
+    <setting propertyKey="@Properties.units" title="@Strings.unitss">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.mgdl</listEntry>
+            <listEntry value="1">@Strings.mmoll</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.maxGoodSgvSetting" title="@Strings.maxGoodSgvS" prompt="@Strings.maxGoodSgvHelp">
+        <settingConfig type="numeric" min="5" max ="200" errorMessage="@Strings.maxGoodSgvError"/>
 	</setting>
-    <setting propertyKey="@Properties.minGoodSgv" title="@Strings.minGoodSgvS" prompt="@Strings.minGoodSgvHelp">
-        <settingConfig type="numeric" min="60" max ="140" errorMessage="@Strings.minGoodSgvError"/>
+    <setting propertyKey="@Properties.minGoodSgvSetting" title="@Strings.minGoodSgvS" prompt="@Strings.minGoodSgvHelp">
+        <settingConfig type="numeric" min="1" max ="140" errorMessage="@Strings.minGoodSgvError"/>
 	</setting>
     <setting propertyKey="@Properties.valuesInScreen" title="@Strings.valuesInScreenS" prompt="@Strings.valuesInScreenHelp">
         <settingConfig type="numeric" min="2" max ="64" errorMessage="@Strings.valuesInScreenError"/>

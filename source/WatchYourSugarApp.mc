@@ -132,6 +132,14 @@ class WatchYourSugarApp extends Application.AppBase {
         Properties.setValue("colorGood", colorGood);
         Properties.setValue("colorBad", colorBad);
 
+        if (Properties.getValue("units") == 0) {
+            Properties.setValue("maxGoodSgv", Properties.getValue("maxGoodSgvSetting").toNumber());
+            Properties.setValue("minGoodSgv", Properties.getValue("minGoodSgvSetting").toNumber());
+        } else {
+            Properties.setValue("maxGoodSgv", (Properties.getValue("maxGoodSgvSetting") * 18.0182).toNumber());
+            Properties.setValue("minGoodSgv", (Properties.getValue("minGoodSgvSetting") * 18.0182).toNumber());
+        }
+
         wasTempEvent = true;
         WatchUi.requestUpdate();
     }
