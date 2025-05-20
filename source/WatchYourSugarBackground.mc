@@ -120,7 +120,8 @@ class Background extends WatchUi.Drawable {
             }
 
             // Converting timestamp to the array index.
-            real_index = (curr_time - time_stamp) / (valuesGap * 60 * 1000);
+            real_index = (curr_time - time_stamp).toDouble() / (valuesGap * 60 * 1000);
+            real_index = Toybox.Math.round(real_index);
             real_index = real_index.toNumber();
             real_index = real_index < 0 ? 0 : real_index;
 
