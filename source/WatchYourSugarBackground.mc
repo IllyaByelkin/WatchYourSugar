@@ -96,8 +96,8 @@ class Background extends WatchUi.Drawable {
         }
 
         // Initializing with zeros/false for the empty data parts.
-        initializeArrayWithValue(pointsx, 0);
-        initializeArrayWithValue(pointsy, 0);
+        initializeArrayWithValue(pointsx, -1);
+        initializeArrayWithValue(pointsy, -1);
         initializeArrayWithValue(isSgvBad, false);
 
         var numberOfIter = sgvData.size();
@@ -135,13 +135,14 @@ class Background extends WatchUi.Drawable {
                 // Should be on the right side (higher coordinate values).
                 pointsx[real_index] = width - real_index * widthStep;
 
-                // Some magic of converting sugar values to the screen coordinates
-                // sorry I wrote it a long time ago.
+                // maximal sugar value visible in the screen minus actual, because
+                // coordinates begin on the top left corner
                 sugar = TOP_SCREEN_SGV - sugar;
                 if (sugar < 0) {
                     sugar = 0;
                 }
 
+                //normalize to the screen size
                 converter = height.toFloat() * (sugar.toFloat() / TOP_SCREEN_SGV);
 
                 pointsy[real_index] =  converter.toNumber();
@@ -196,7 +197,7 @@ class Background extends WatchUi.Drawable {
         for (var i = 0; i < numberOfIter; i++) {
 
             // Part for the data gaps
-            if (pointsy[i] == 0 || pointsy[i + 1] == 0) {
+            if (pointsy[i] < 0 || pointsy[i + 1] < 0) {
                 continue;
             }
             if (isSgvBad[i] || isSgvBad[i + 1]) {
