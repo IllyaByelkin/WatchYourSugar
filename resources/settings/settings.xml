@@ -1,5 +1,9 @@
 <settings>
 
+    <setting propertyKey="@Properties.serverTipp" title="@Strings.serverTippS">
+        <settingConfig type="url" readonly="true" />
+    </setting>
+
     <setting propertyKey="@Properties.units" title="@Strings.unitss">
         <settingConfig type="list">
             <listEntry value="0">@Strings.mgdl</listEntry>
@@ -8,7 +12,7 @@
     </setting>
     <setting propertyKey="@Properties.is12HourFormat" title="@Strings.is12HourFormatS" prompt="@Strings.is12HourFormatHelp">
         <settingConfig type="boolean"/>
-    </setting>
+	</setting>
     <setting propertyKey="@Properties.maxGoodSgvSetting" title="@Strings.maxGoodSgvS" prompt="@Strings.maxGoodSgvHelp">
         <settingConfig type="numeric" min="5" max ="200" errorMessage="@Strings.maxGoodSgvError"/>
 	</setting>

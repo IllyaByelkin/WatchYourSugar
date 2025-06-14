@@ -7,6 +7,8 @@
     <string id="mgdl">mg/dl</string>
     <string id="mmoll">mmol/l</string>
 
+    <string id="serverTippS">To ensure proper functioning, make sure to enable the xDrip Web-Server in your xDrip+ app (Settings - Inter-App Settings - enable xDrip Web-Server, but not the Open Web Server).</string>
+
     <string id="is12HourFormatS">Is 12 Hour format</string>
     <string id="maxGoodSgvS">Taget BG range High</string>
     <string id="minGoodSgvS">Taget BG range Low</string>

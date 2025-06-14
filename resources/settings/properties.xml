@@ -1,6 +1,9 @@
 <properties>
 
     <property id="units" type="number">0</property>
+
+    <property id="serverTipp" type="string">http://127.0.0.1:17580/sgv.json</property>
+
     <property id="is12HourFormat" type="boolean">false</property>
 
     <property id="maxGoodSgvSetting" type="float">180</property>
