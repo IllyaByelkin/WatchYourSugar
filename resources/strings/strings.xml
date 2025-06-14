@@ -7,6 +7,7 @@
     <string id="mgdl">mg/dl</string>
     <string id="mmoll">mmol/l</string>
 
+    <string id="is12HourFormatS">Is 12 Hour format</string>
     <string id="maxGoodSgvS">Taget BG range High</string>
     <string id="minGoodSgvS">Taget BG range Low</string>
     <string id="valuesInScreenS">Max number of values in the Plot</string>
@@ -21,6 +22,7 @@
     <string id="colorBadError">This value should be a hex number between 0x000000 and 0xffffff</string>
     <string id="colorGoodError">This value should be a hex number between 0x000000 and 0xffffff</string>
 
+    <string id="is12HourFormatHelp">Check for 12 Hour format, uncheck for 24 Hours format</string>
     <string id="maxGoodSgvHelp">A number between 5 and 200</string>
     <string id="minGoodSgvHelp">A number between 1 and 140</string>
     <string id="valuesInScreenHelp">A whole number between 2 and 64</string>

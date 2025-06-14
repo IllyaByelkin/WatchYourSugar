@@ -6,6 +6,9 @@
             <listEntry value="1">@Strings.mmoll</listEntry>
         </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.is12HourFormat" title="@Strings.is12HourFormatS" prompt="@Strings.is12HourFormatHelp">
+        <settingConfig type="boolean"/>
+    </setting>
     <setting propertyKey="@Properties.maxGoodSgvSetting" title="@Strings.maxGoodSgvS" prompt="@Strings.maxGoodSgvHelp">
         <settingConfig type="numeric" min="5" max ="200" errorMessage="@Strings.maxGoodSgvError"/>
 	</setting>

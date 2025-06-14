@@ -66,7 +66,14 @@ class WatchYourSugarView extends WatchUi.WatchFace {
 
         var now = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
     
-        var hours = now.hour.format("%02d");
+        var hourNum = now.hour;
+
+        if(Properties.getValue("is12HourFormat")) {
+            hourNum = hourNum % 12;
+            hourNum = (hourNum == 0) ? 12 : hourNum;
+        }
+
+        var hours = hourNum.format("%02d");
         var minutes = now.min.format("%02d");
 
         var date = now.day.format("%02d");
