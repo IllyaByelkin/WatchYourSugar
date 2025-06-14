@@ -110,6 +110,8 @@ class Background extends WatchUi.Drawable {
         // toLong, otherwise integer overflow
         var curr_time = Time.now().value().toLong() * (1000 as Long);
 
+        var prev_index = -1;
+
         for (var i = 0; i < numberOfIter; i++) {
 
             sugar = sgvData[i].get("sgv") as Number;
@@ -124,6 +126,10 @@ class Background extends WatchUi.Drawable {
             real_index = Toybox.Math.round(real_index);
             real_index = real_index.toNumber();
             real_index = real_index < 0 ? 0 : real_index;
+
+            if (real_index == prev_index) {
+                real_index++;
+            }
 
             if (real_index < valuesInScreen) {
                 if (sugar > maxGoodSgv || sugar < minGoodSgv) {
