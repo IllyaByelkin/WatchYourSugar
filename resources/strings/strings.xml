@@ -16,6 +16,7 @@
     <string id="valuesGapS">Time between sugar values</string>
     <string id="colorBadS">Color for the bad sugar values</string>
     <string id="colorGoodS">Color for the good sugar values</string>
+    <string id="colorBackgroundS">Background color</string>
 
     <string id="maxGoodSgvError">This value should be a number between 5 and 200</string>
     <string id="minGoodSgvError">This value should be a number between 1 and 140</string>
@@ -23,6 +24,7 @@
     <string id="valuesGapError">This value should be a whole number between 1 and 60</string>
     <string id="colorBadError">This value should be a hex number between 0x000000 and 0xffffff</string>
     <string id="colorGoodError">This value should be a hex number between 0x000000 and 0xffffff</string>
+    <string id="colorBackgroundError">This value should be a hex number between 0x000000 and 0xffffff</string>
 
     <string id="is12HourFormatHelp">Check for 12 Hour format, uncheck for 24 Hours format</string>
     <string id="maxGoodSgvHelp">A number between 5 and 200</string>
@@ -31,5 +33,6 @@
     <string id="valuesGapHelp">A whole number between 1 and 60</string>
     <string id="colorBadHelp">A hex number between 0x000000 and 0xffffff</string>
     <string id="colorGoodHelp">A hex number between 0x000000 and 0xffffff</string>
+    <string id="colorBackgroundHelp">A hex number between 0x000000 and 0xffffff</string>
 
 </strings>

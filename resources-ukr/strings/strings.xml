@@ -8,6 +8,7 @@
     <string id="valuesGapS">Час між вимірюваннями рівня цукру</string>
     <string id="colorBadS">Колір для поганих показників цукру</string>
     <string id="colorGoodS">Колір для хороших показників цукру</string>
+    <string id="colorBackgroundS">Колір фону</string>
 
     <string id="maxGoodSgvError">Це значення повинно бути цілим числом від 100 до 200</string>
     <string id="minGoodSgvError">Це значення повинно бути цілим числом від 60 до 140</string>
@@ -15,6 +16,7 @@
     <string id="valuesGapError">Це значення повинно бути цілим числом від 1 до 60</string>
     <string id="colorBadError">Значення повинно бути шістнадцятковим числом від 0x000000 до 0xffffff</string>
     <string id="colorGoodError">Значення повинно бути шістнадцятковим числом від 0x000000 до 0xffffff</string>
+    <string id="colorBackgroundError">Це значення має бути шістнадцятковим числом між 0x000000 та 0xffffff</string>
 
     <string id="maxGoodSgvHelp">Ціле число від 100 до 200</string>
     <string id="minGoodSgvHelp">Ціле число від 60 до 140</string>
@@ -22,5 +24,6 @@
     <string id="valuesGapHelp">Ціле число від 1 до 60</string>
     <string id="colorBadHelp">Шістнадцяткове число від 0x000000 до 0xffffff</string>
     <string id="colorGoodHelp">Шістнадцяткове число від 0x000000 до 0xffffff</string>
+    <string id="colorBackgroundHelp">Шістнадцяткове число між 0x000000 та 0xffffff</string>
 
 </strings>

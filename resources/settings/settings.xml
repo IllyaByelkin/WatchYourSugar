@@ -31,6 +31,9 @@
     <setting propertyKey="@Properties.strColorGood" title="@Strings.colorGoodS" prompt="@Strings.colorGoodHelp">
         <settingConfig type="alphaNumeric" maxLength="8" errorMessage="@Strings.colorGoodError"/>
 	</setting>
+    <setting propertyKey="@Properties.strColorBackground" title="@Strings.colorBackgroundS" prompt="@Strings.colorBackgroundHelp">
+        <settingConfig type="alphaNumeric" maxLength="8" errorMessage="@Strings.colorBackgroundError"/>
+	</setting>
 
 
 </settings>

@@ -40,6 +40,33 @@ class WatchYourSugarApp extends Application.AppBase {
         return sgvData;
     }
 
+    function mixColors (color1 as Number, color2 as Number, factor as Float) as Number {
+
+        if (factor < 0 || factor > 1) {
+            return color1;
+        }
+
+        var r1 = (color1 >> 16) & 0xFF;
+        var g1 = (color1 >> 8) & 0xFF;
+        var b1 = color1 & 0xFF;
+
+        var r2 = (color2 >> 16) & 0xFF;
+        var g2 = (color2 >> 8) & 0xFF;
+        var b2 = color2 & 0xFF;
+
+        var revFac = 1 - factor;
+
+        r1 = r1 * revFac + r2 * factor;
+        g1 = g1 * revFac + g2 * factor;
+        b1 = b1 * revFac + b2 * factor;
+
+        r1 = r1.toNumber();
+        g1 = g1.toNumber();
+        b1 = b1.toNumber();
+
+        return ((r1 << 16) | (g1 << 8) | b1);
+    }
+
     function initialize() {
         AppBase.initialize();
     }
@@ -53,6 +80,16 @@ class WatchYourSugarApp extends Application.AppBase {
         if (flag != null) {
             dataChanged = flag;
         }
+
+        var colorGood = Properties.getValue("colorGood");
+        var colorBad = Properties.getValue("colorBad");
+        var backgroundColor = Properties.getValue("colorBackground");
+
+        var darkColorGood =  mixColors (colorGood, backgroundColor, 0.75);
+        var darkColorBad =  mixColors (colorBad, backgroundColor, 0.75);
+
+        Storage.setValue("colorGoodBack", darkColorGood);
+        Storage.setValue("colorBadBack", darkColorBad);
     }
 
     function onStop(state as Dictionary?) as Void {
@@ -131,6 +168,17 @@ class WatchYourSugarApp extends Application.AppBase {
 
         Properties.setValue("colorGood", colorGood);
         Properties.setValue("colorBad", colorBad);
+
+        var strColorBackground = Properties.getValue("strColorBackground");
+        var backgroundColor = Properties.getValue("colorBackground");
+        backgroundColor = hexStrToNum(strColorBackground, backgroundColor);
+        Properties.setValue("colorBackground", backgroundColor);
+
+        var darkColorGood =  mixColors (colorGood, backgroundColor, 0.75);
+        var darkColorBad =  mixColors (colorBad, backgroundColor, 0.75);
+
+        Storage.setValue("colorGoodBack", darkColorGood);
+        Storage.setValue("colorBadBack", darkColorBad);
 
         if (Properties.getValue("units") == 0) {
             Properties.setValue("maxGoodSgv", Properties.getValue("maxGoodSgvSetting").toNumber());

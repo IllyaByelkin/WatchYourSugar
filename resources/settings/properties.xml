@@ -19,4 +19,7 @@
 
     <property id="colorBad" type="number">0xff0000</property>
     <property id="colorGood" type="number">0x0000ff</property>
+
+    <property id="strColorBackground" type="string">0x000000</property>
+    <property id="colorBackground" type="number">0x000000</property>
 </properties>

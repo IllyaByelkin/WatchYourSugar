@@ -194,12 +194,25 @@ class Background extends WatchUi.Drawable {
      * @param dc device context
     */
     function draw(dc as Dc) as Void {
+
+        var backgroundColor = Properties.getValue("colorBackground");
+
+        var width = dc.getWidth();
+        var height = dc.getHeight();
+
+        dc.setColor(backgroundColor, 0x0000FF);
+        dc.fillRectangle(0, 0, width, height);
+
         var numberOfIter = pointsx.size() - 1;
 
         var colorGood = Properties.getValue("colorGood");
         var colorBad = Properties.getValue("colorBad");
-        var darkColorGood = makeColorDarker(colorGood, 0.25);
-        var darkColorBad = makeColorDarker(colorBad, 0.25);
+
+        // var darkColorGood = makeColorDarker(colorGood, 0.25);//TODO call only by change
+        // var darkColorBad = makeColorDarker(colorBad, 0.25);
+
+        var darkColorGood =  Storage.getValue("colorGoodBack");
+        var darkColorBad =  Storage.getValue("colorBadBack");
 
         for (var i = 0; i < numberOfIter; i++) {
 
